@@ -1,18 +1,36 @@
 #include "vector.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 Vector *vector_create(void) {
   Vector *vector = malloc(sizeof(Vector));
+  if (vector == NULL) {
+    perror("Failed to allocate memory for vector");
+    exit(EXIT_FAILURE);
+  }
   vector->size = 0;
   vector->capacity = VECTOR_INITIAL_CAPACITY;
   vector->data = malloc(sizeof(double) * vector->capacity);
+  if (vector->data == NULL) {
+    perror("Failed to allocate memory for vector data");
+    exit(EXIT_FAILURE);
+  }
   return vector;
 }
 
 void vector_push(Vector *vector, double element) {
+  if (vector == NULL) {
+    fprintf(stderr, "Null pointer passed to vector_push\n");
+    return;
+  }
   if (vector->size == vector->capacity) {
+    double *temp = realloc(vector->data, sizeof(double) * vector->capacity * 2);
+    if (temp == NULL) {
+      perror("Failed to reallocate memory for vector data");
+      exit(EXIT_FAILURE);
+    }
     vector->capacity *= 2;
-    vector->data = realloc(vector->data, sizeof(double) * vector->capacity);
+    vector->data = temp;
   }
   vector->data[vector->size++] = element;
 }
