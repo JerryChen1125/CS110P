@@ -40,6 +40,10 @@ double vector_get(const Vector *vector, int index) {
     fprintf(stderr, "Null pointer passed to vector_get\n");
     return 0.0;
   }
+  if (index < 0 || index >= vector->size) {
+    fprintf(stderr, "Index out of bounds in vector_get\n");
+    return 0.0;
+  }
   return vector->data[index];
 }
 
