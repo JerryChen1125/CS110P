@@ -17,4 +17,6 @@ double vector_get(const Vector *vector, int index);
 
 void vector_free(Vector *vector);
 
+void another_vector_free(Vector **vector);
+
 #endif // LAB_2_VECTOR_H
