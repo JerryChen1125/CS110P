@@ -36,10 +36,18 @@ void vector_push(Vector *vector, double element) {
 }
 
 double vector_get(const Vector *vector, int index) {
+  if (vector == NULL) {
+    fprintf(stderr, "Null pointer passed to vector_get\n");
+    return 0.0;
+  }
   return vector->data[index];
 }
 
 void vector_free(Vector *vector) {
+  if (vector == NULL) {
+    fprintf(stderr, "Null pointer passed to vector_free\n");
+    return;
+  }
   free(vector->data);
   free(vector);
 }
